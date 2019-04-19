@@ -1,0 +1,34 @@
+{
+    "name": "ncd-red-mcp3428",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"The test.js file may be used for testing, but configuration of the I2C connection is required.\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ncd-io/ncd-red-mcp3428"
+    },
+    "keywords": [
+        "MCP3428",
+        "ncd",
+        "i2c",
+		"ADC"
+    ],
+    "author": "Trey Felton",
+    "license": "MIT",
+    "node-red": {
+        "nodes": {
+            "ncd-lower_chip": "MCP3428.js"
+        }
+    },
+    "dependencies": {
+        "ncd-red-comm": "^1.6.3",
+        "promise-queue": "^2.2.5"
+    },
+    "bugs": {
+        "url": "https://github.com/ncd-io/ncd-red-mcp3428/issues"
+    },
+    "homepage": "https://github.com/ncd-io/ncd-red-mcp3428#readme"
+}

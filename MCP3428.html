@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ncd-mcp3425',{
+        category: 'NCD',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ""},
+			connection: {value: "", type: "ncd-comm"},
+			interval: {value: 0, validate: RED.validators.number()},
+			resolution: {value: 12, validate: RED.validators.number()},
+			gain: {value: 1, validate: RED.validators.number()},
+			mode: {value: 1, validate: RED.validators.number()},
+			mult: {value: 1, validate: v => parseFloat(v)}
+        },
+        inputs:1,
+        outputs:1,
+		icon: "serial.png",
+		paletteLabel: "MCP3425",
+        label: function() {
+            return this.name || "MCP3425";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="ncd-mcp3425">
+	<div class="form-row">
+		<label for="node-input-name"><i class="icon-tag"></i> Name</label>
+		<input type="text" id="node-input-name" placeholder="Name">
+	</div>
+	<div class="form-row">
+		<label for="node-input-connection"><i class="icon-tag"></i> I2C Connection</label>
+		<select id="node-input-connection"></select>
+	</div>
+	<div class="form-row">
+		<label for="node-input-interval"><i class="icon-repeat"></i> Interval</label>
+		<input type="text" id="node-input-interval" placeholder="Interval">
+	</div>
+	<div class="form-row">
+		<label for="node-input-resolution"><i class="icon-tag"></i> Resolution</label>
+		<select id="node-input-resolution">
+			<option value="12">12-Bit (240 sps)</option>
+			<option value="14">14-Bit (60 sps)</option>
+			<option value="16">16-Bit (15 sps)</option>
+		</select>
+	</div>
+	<div class="form-row">
+		<label for="node-input-gain"><i class="icon-tag"></i> Gain</label>
+		<select id="node-input-gain">
+			<option value="1">1X</option>
+			<option value="2">2X</option>
+			<option value="4">4X</option>
+			<option value="8">8X</option>
+		</select>
+	</div>
+	<div class="form-row">
+		<label for="node-input-mult"><i class="icon-tag"></i> Multiplier</label>
+		<input type="text" id="node-input-mult" value="1" placeholder="Multiplier">
+	</div>
+	<div class="form-row">
+		<label for="node-input-mode"><i class="icon-tag"></i> Conversion Mode</label>
+		<select id="node-input-mode">
+			<option value="1">Continuous</option>
+			<option value="0">One-Shot</option>
+		</select>
+	</div>
+</script>
+
+<script type="text/x-red" data-help-name="ncd-mcp3425">
+    <h3>I2C Connection</h3>
+	<p>Configure the connection you want to use to communicate to your I2C device. Native I2C and USB to I2C converters are supported.</p>
+	<h3>Interval</h3>
+	<p>The interval defines the time between status checks. It is in milliseconds, and the interval starts after the previous check has finished.</p>
+	<h3>Multiplier</h3>
+	<p>A liniear value to multiply the output by before the node sends it to the flow.</p>
+</script>
