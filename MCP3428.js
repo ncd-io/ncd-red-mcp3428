@@ -1,6 +1,6 @@
 "use strict";
 
-const MCP3425 = require("./index.js");
+const MCP3428 = require("./index.js");
 const Queue = require("promise-queue");
 
 module.exports = function(RED){
@@ -24,7 +24,7 @@ module.exports = function(RED){
 		}
 
 		//create new sensor reference
-		this.sensor = new MCP3425(this.addr, RED.nodes.getNode(config.connection).i2c, config);
+		this.sensor = new MCP3428(this.addr, RED.nodes.getNode(config.connection).i2c, config);
 
 		var node = this;
 
@@ -97,5 +97,5 @@ module.exports = function(RED){
 	}
 
 	//register the node with Node-RED
-	RED.nodes.registerType("ncd-mcp3425", NcdI2cDeviceNode);
+	RED.nodes.registerType("ncd-mcp3428", NcdI2cDeviceNode);
 };

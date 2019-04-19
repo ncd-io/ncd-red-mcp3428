@@ -1,13 +1,13 @@
-This library provides a class for the MCP3425, it relies on the ncd-red-comm library for communication, and includes a node-red node for MCP3425. The MCP3425 is a 1-Channel Analog to Digital Converter with 16-Bit resolution, ideally suited for low-speed high-resolution sensor monitoring. [Ncd.io](https://ncd.io) manufactures a mini-module that utilizes this converter in an easy to use form factor. You can view and purchase the mini-module [here](https://store.ncd.io/product/mcp3425-16-bit-1-channel-analog-to-digital-converter-i2c-mini-module).
+This library provides a class for the MCP3428, it relies on the ncd-red-comm library for communication, and includes a node-red node for MCP3428. The MCP3428 is a 4-Channel Analog to Digital Converter with 16-Bit resolution, ideally suited for low-speed high-resolution sensor monitoring. [Ncd.io](https://ncd.io) manufactures a multiple easy to use form factors that utilize this converter. You can view list of available boards [here](https://store.ncd.io/?fwp_product_type=analog-to-digital-converter&fwp_chip_name=mcp3428).
 
-[![MCP3425](./MCP3425.png)](https://store.ncd.io/product/mcp3425-16-bit-1-channel-analog-to-digital-converter-i2c-mini-module)
+[![MCP3428](./MCP3428.png)](https://store.ncd.io/?fwp_product_type=analog-to-digital-converter&fwp_chip_name=mcp3428)
 
 ### Installation
 
 This library can be installed with npm with the following command:
 
 ```
-npm install ncd-red-mcp3425
+npm install ncd-red-MCP3428
 ```
 
 For use in node-red, use the same command, but inside of your node-red directory (usually `~./node-red`).

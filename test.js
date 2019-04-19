@@ -1,5 +1,5 @@
 var comms = require('ncd-red-comm');
-var MCP3425 = require('./index.js');
+var MCP3428 = require('./index.js');
 
 /*
  * Allows use of a USB to I2C converter form ncd.io
@@ -18,7 +18,7 @@ var config = {
 	gain: 1,
 	mode: 1 // continuous conversion
 };
-var adc = new MCP3425(comm, config);
+var adc = new MCP3428(comm, config);
 
 function testGet(){
 	adc.get().then((r) => {

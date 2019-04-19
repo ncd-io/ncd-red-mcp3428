@@ -1,4 +1,4 @@
-module.exports = class MCP3425{
+module.exports = class MCP3428{
 	constructor(addr, comm, config){
 		//ensure config is an object
 		if(typeof config != 'object') config = {};

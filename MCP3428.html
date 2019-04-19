@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('ncd-mcp3425',{
+    RED.nodes.registerType('ncd-mcp3428',{
         category: 'NCD',
         color: '#a6bbcf',
         defaults: {
@@ -14,14 +14,14 @@
         inputs:1,
         outputs:1,
 		icon: "serial.png",
-		paletteLabel: "MCP3425",
+		paletteLabel: "MCP3428",
         label: function() {
-            return this.name || "MCP3425";
+            return this.name || "MCP3428";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="ncd-mcp3425">
+<script type="text/x-red" data-template-name="ncd-mcp3428">
 	<div class="form-row">
 		<label for="node-input-name"><i class="icon-tag"></i> Name</label>
 		<input type="text" id="node-input-name" placeholder="Name">
@@ -64,7 +64,7 @@
 	</div>
 </script>
 
-<script type="text/x-red" data-help-name="ncd-mcp3425">
+<script type="text/x-red" data-help-name="ncd-mcp3428">
     <h3>I2C Connection</h3>
 	<p>Configure the connection you want to use to communicate to your I2C device. Native I2C and USB to I2C converters are supported.</p>
 	<h3>Interval</h3>
