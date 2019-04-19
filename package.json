@@ -14,7 +14,7 @@
         "MCP3428",
         "ncd",
         "i2c",
-		"ADC"
+        "ADC"
     ],
     "author": "Trey Felton",
     "license": "MIT",

@@ -49,17 +49,32 @@ module.exports = function(RED){
 
 		//send telemetry data out the nodes output
 		function send_payload(_status){
-			var msg = incoming ? incoming : {};
-			msg.payload = _status * config.mult;
-			incoming = false;
-			node.send(msg);
+			console.log('status', _status);
+			if(_status.constructor == Array){
+				node.send(_status.map(v => {
+					var msg = incoming ? incoming : {};
+					msg.payload = v * config.mult;
+				}));
+
+				incoming = false;
+			}else{
+				var msg = incoming ? incoming : {};
+				msg.payload = _status * config.mult;
+				incoming = false;
+				node.send(msg);
+			}
 		}
 
 		//get the current telemetry data
 		function get_status(repeat, force){
 			if(repeat) clearTimeout(sensor_pool[node.id].timeout);
 			if(device_status(node)){
-				node.sensor.get().then(send_payload).catch((err) => {
+				console.log('one shot');
+				var promises = [];
+				for(var i=0;i<4;i++){
+					promises.push(node.sensor.get(i));
+				}
+				Promise.all(promises).then(send_payload).catch((err) => {
 					node.send({error: err});
 				}).then(() => {
 					if(repeat && node.interval){
