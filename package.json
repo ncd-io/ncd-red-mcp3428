@@ -1,6 +1,6 @@
 {
     "name": "ncd-red-mcp3428",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -24,7 +24,7 @@
         }
     },
     "dependencies": {
-        "ncd-red-comm": "^1.6.3",
+        "ncd-red-comm": "^1.6.6",
         "promise-queue": "^2.2.5"
     },
     "bugs": {
