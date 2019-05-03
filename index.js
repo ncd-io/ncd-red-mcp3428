@@ -21,7 +21,7 @@ module.exports = class MCP3428{
 	configByte(ch){
 		var gain = {"1": 0, "2": 1, "4": 2, "8": 3};
 		ch <<= 5;
-		return 128 | ((this.config.resolution - 12) / 2) * 4 | gain[this.config.gain] | (this.config.mode << 4);
+		return 128 | ch | ((this.config.resolution - 12) / 2) * 4 | gain[this.config.gain] | (this.config.mode << 4);
 	}
 	init(){
 		//Run initialization routine for the chip
@@ -35,7 +35,8 @@ module.exports = class MCP3428{
 	get(ch, read, tries=0){
 		if(this.config.mode == 0 && read !== true){
 			return new Promise((fulfill, reject) => {
-				this.comm.writeBytes(this.addr, this.configByte(ch)).then(() => {
+				var config = this.configByte(ch);
+				this.comm.writeBytes(this.addr, config).then(() => {
 					this.initialized = true;
 					this.get(ch, true).then(fulfill).catch(reject);
 				}).catch((err) => {

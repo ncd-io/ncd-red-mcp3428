@@ -49,13 +49,13 @@ module.exports = function(RED){
 
 		//send telemetry data out the nodes output
 		function send_payload(_status){
-			console.log('status', _status);
 			if(_status.constructor == Array){
-				node.send(_status.map(v => {
-					var msg = incoming ? incoming : {};
-					msg.payload = v * config.mult;
-				}));
-
+				var msg = _status.map(v => {
+					let msg2 = incoming ? incoming : {};
+					msg2.payload = v * config.mult;
+					return msg2;
+				});
+				node.send(msg);
 				incoming = false;
 			}else{
 				var msg = incoming ? incoming : {};
@@ -64,27 +64,36 @@ module.exports = function(RED){
 				node.send(msg);
 			}
 		}
-
+		var queue = new Queue(1);
 		//get the current telemetry data
 		function get_status(repeat, force){
 			if(repeat) clearTimeout(sensor_pool[node.id].timeout);
 			if(device_status(node)){
-				console.log('one shot');
-				var promises = [];
+				var _status = [];
 				for(var i=0;i<4;i++){
-					promises.push(node.sensor.get(i));
+					let chnl = i;
+					queue.add(() => {
+						return new Promise((fulfill, reject) => {
+							node.sensor.get(chnl).then((res) => {
+								_status[chnl] = res;
+								fulfill();
+							}).catch(reject);
+						});
+					});
 				}
-				Promise.all(promises).then(send_payload).catch((err) => {
-					node.send({error: err});
-				}).then(() => {
-					if(repeat && node.interval){
-						clearTimeout(sensor_pool[node.id].timeout);
-						sensor_pool[node.id].timeout = setTimeout(() => {
-							if(typeof sensor_pool[node.id] != 'undefined') get_status(true);
-						}, sensor_pool[node.id].node.interval);
-					}else{
-						sensor_pool[node.id].polling = false;
-					}
+				queue.add(() => {
+					return new Promise((fulfill, reject) => {
+						send_payload(_status);
+						fulfill();
+						if(repeat && node.interval){
+							clearTimeout(sensor_pool[node.id].timeout);
+							sensor_pool[node.id].timeout = setTimeout(() => {
+								if(typeof sensor_pool[node.id] != 'undefined') get_status(true);
+							}, sensor_pool[node.id].node.interval);
+						}else{
+							sensor_pool[node.id].polling = false;
+						}
+					});
 				});
 			}else{
 				sensor_pool[node.id].timeout = setTimeout(() => {
